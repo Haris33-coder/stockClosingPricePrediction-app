@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>ML Project</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../static/style.css">
+  
+<script>
+  $(function(){
+      $('#model_name').change(showResult);
+      
+  });
+
+  function showResult(){
+  var value = $('#model_name option:selected').attr('value');
+  $("#prediction").empty();
+  $("#prediction").append(`<hr><hr><h3>Closing price of the share would be: $${value}</h3>`);
+  }
+  </script>
+
+</head>
+
+<body>
+ <div class="login">
+	<h1>Predict Closing Price of AADR</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="/" method="post">
+    	<input type="text" name="open" placeholder="Open Price" required="required" />
+        <input type="text" name="high" placeholder="Highest price for the day" required="required" />
+          <input type="text" name="low" placeholder="Lowest price for the day" required="required" />
+            <input type="text" name="volume", placeholder="Volume traded that day", required="required">
+            
+        <button type="submit" id="btn" class="btn btn-primary btn-block btn-large">Predict</button>
+        <h6 id="prompt"></h6>
+ 
+        <hr>
+
+        <select name="Result" id="model_name" class="btn btn-primary btn-block btn-large">
+          <option  selected disabled value="">Select Model</option>
+          {% for option in prediction %}
+          <option value="{{option[1]}}">{{option[0]}}</option>
+          {% endfor %}
+      </select>
+    </form>
+        
+   <br>
+   <br>
+   <div id="prediction" class="pre">
+   </div>
+
+   <div class="pre">
+    <ul>
+      <li>Enter the valid value in input fields.</li>
+      <li>Click "Predict" Button.</li>
+      <li>Select different model names from drop down list for different results.</li>
+      <li>Refresh the page for new prediction.</li>
+    </ul>
+   </div>
+
+ </div>
+
+
+</body>
+</html>
